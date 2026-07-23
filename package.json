@@ -1,0 +1,9 @@
+{
+  "name": "lmc-elemsi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Elemsi | LMC community wall",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

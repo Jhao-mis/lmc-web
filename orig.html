@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elemsi | LMC</title>
+    <link rel="icon" href="img/icon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        ink: '#0a0a0a',
+                        panel: '#141414',
+                        line: 'rgba(255,255,255,0.10)',
+                        blood: '#e10600',
+                        paper: '#f5f4ef',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.05;
+            background-image: radial-gradient(#fff 0.6px, transparent 0.6px);
+            background-size: 3px 3px;
+        }
+
+        .stub {
+            position: relative;
+            background: #e10600;
+            color: #0a0a0a;
+        }
+
+        .stub::before,
+        .stub::after {
+            content: "";
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #0a0a0a;
+            border-radius: 999px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .stub::before {
+            left: -7px;
+        }
+
+        .stub::after {
+            right: -7px;
+        }
+
+        .stub-edge {
+            background-image: repeating-linear-gradient(to bottom, #0a0a0a 0 6px, transparent 6px 12px);
+            background-size: 2px 12px;
+            background-repeat: repeat-y;
+        }
+
+        .torn-top {
+            clip-path: polygon(0% 6px, 2% 0%, 5% 5px, 8% 0%, 11% 5px, 14% 0%, 17% 5px, 20% 0%, 23% 5px, 26% 0%, 29% 5px, 32% 0%, 35% 5px, 38% 0%, 41% 5px, 44% 0%, 47% 5px, 50% 0%, 53% 5px, 56% 0%, 59% 5px, 62% 0%, 65% 5px, 68% 0%, 71% 5px, 74% 0%, 77% 5px, 80% 0%, 83% 5px, 86% 0%, 89% 5px, 92% 0%, 95% 5px, 98% 0%, 100% 6px, 100% 100%, 0% 100%);
+        }
+
+        .pin::before {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #e10600;
+            border-radius: 999px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        ::selection {
+            background: #e10600;
+            color: #fff;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-body text-paper relative">
+
+    <div class="grain"></div>
+
+    <main class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+
+        <!-- Hero -->
+        <section class="relative fade-up">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="stub stub-edge px-5 py-1.5 -rotate-2 shadow-lg shadow-black/50">
+                    <span class="font-display text-xl tracking-widest">LMC</span>
+                </div>
+                <span class="text-[11px] tracking-[0.35em] uppercase text-white/40 font-semibold">Letran Musician
+                    Circle</span>
+            </div>
+
+            <h1 class="font-display text-5xl sm:text-6xl md:text-7xl leading-[0.95] tracking-wide">
+                KAMI ANG<br>
+                <span class="text-blood">KINABUKASAN</span><br>
+                NG LMC
+            </h1>
+
+            <div class="mt-6 border-l-2 border-blood pl-4">
+                <p class="text-base sm:text-lg text-white/80 font-medium leading-snug">
+                    We've never been touched, but touch me not — or we'll touch ourselves na lang.
+                </p>
+                <p class="italic text-sm sm:text-base text-white/50 mt-1">WE LOVE LMC SO MUCH ARGH</p>
+            </div>
+        </section>
+
+        <!-- Wall: pinned photos + comments -->
+        <section class="mt-14 sm:mt-20 fade-up" style="animation-delay:0.1s">
+            <div class="flex items-baseline justify-between mb-1">
+                <h2 class="font-display text-3xl sm:text-4xl tracking-wide">LMC FREEDOM WALL</h2>
+                <span class="text-xs text-white/40 uppercase tracking-widest">Pinned by everyone</span>
+            </div>
+            <p class="text-sm text-white/50 mb-8">Post a photo message sa trip nyo mga lmc pips.</p>
+
+            <!-- Composer -->
+            <form id="comment-form" class="bg-panel ring-1 ring-line rounded-none p-5 sm:p-6 mb-10 relative">
+                <div class="absolute -top-2.5 left-6 w-5 h-5 bg-blood rotate-45"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 mb-3">
+                    <input id="comment-name" type="text" maxlength="40" placeholder="Alias"
+                        class="w-full bg-transparent border-b border-line focus:border-blood px-1 py-2 text-sm placeholder-white/30 transition"
+                        required>
+                </div>
+                <textarea id="comment-text" rows="3" maxlength="500" placeholder="Anong masasabe mo"
+                    class="w-full bg-transparent border-b border-line focus:border-blood px-1 py-2 text-sm placeholder-white/30 transition resize-none mb-3"></textarea>
+
+                <div id="image-preview-wrap" class="hidden mb-3">
+                    <div class="relative inline-block">
+                        <img id="image-preview" class="max-h-40 rounded-sm ring-1 ring-line" />
+                        <button type="button" id="remove-image" aria-label="Remove photo"
+                            class="absolute -top-2 -right-2 w-6 h-6 bg-blood text-white text-xs font-bold rounded-full flex items-center justify-center shadow">×</button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-3 flex-wrap">
+                    <label
+                        class="inline-flex items-center gap-2 text-xs text-white/60 hover:text-white cursor-pointer transition">
+                        <input id="image-input" type="file" accept="image/*" class="hidden">
+                        <span class="border border-line px-3 py-1.5 hover:border-white/40 transition">+ Add photo</span>
+                    </label>
+                    <button type="submit" id="submit-btn"
+                        class="inline-flex items-center gap-2 bg-blood hover:bg-red-600 active:scale-95 text-white px-6 py-2.5 text-sm font-bold tracking-wide uppercase transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        Submit
+                    </button>
+                </div>
+                <p id="form-error" class="text-xs text-blood mt-2 hidden"></p>
+            </form>
+
+            <div id="wall-status" class="text-sm text-white/40 text-center py-10">Loading the wall...</div>
+            <ul id="wall-list" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></ul>
+        </section>
+
+        <footer class="text-center text-white/30 text-xs mt-16 pb-4 tracking-widest uppercase">Letran Musician
+            Circle @2026</footer>
+    </main>
+
+    <script>
+        const API = '/api/comments';
+        const SEED_PHOTOS = [
+            { id: 'seed-1', name: 'Honz', text: 'Taga tambol', image: 'img/h.png', time: 0, pinned: true },
+            { id: 'seed-2', name: 'Marco', text: 'El Presidente', image: 'img/m.png', time: 0, pinned: true },
+        ];
+
+        const form = document.getElementById('comment-form');
+        const nameInput = document.getElementById('comment-name');
+        const textInput = document.getElementById('comment-text');
+        const listEl = document.getElementById('wall-list');
+        const statusEl = document.getElementById('wall-status');
+        const errorEl = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submit-btn');
+        const imageInput = document.getElementById('image-input');
+        const imagePreviewWrap = document.getElementById('image-preview-wrap');
+        const imagePreview = document.getElementById('image-preview');
+        const removeImageBtn = document.getElementById('remove-image');
+
+        let pendingImage = null; // resized base64 data URL
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function timeAgo(ts) {
+            const diff = Math.floor((Date.now() - ts) / 1000);
+            if (diff < 60) return 'just now';
+            if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+            if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+            if (diff < 2592000) return Math.floor(diff / 86400) + 'd ago';
+            return new Date(ts).toLocaleDateString();
+        }
+
+        function showError(msg) {
+            errorEl.textContent = msg;
+            errorEl.classList.remove('hidden');
+        }
+
+        function clearError() {
+            errorEl.classList.add('hidden');
+        }
+
+        function resizeImage(file, maxDim = 900, quality = 0.72) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let { width, height } = img;
+                        if (width > height && width > maxDim) {
+                            height = Math.round(height * (maxDim / width));
+                            width = maxDim;
+                        } else if (height > maxDim) {
+                            width = Math.round(width * (maxDim / height));
+                            height = maxDim;
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = reject;
+                    img.src = reader.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        imageInput.addEventListener('change', async () => {
+            const file = imageInput.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                showError('Please choose an image file.');
+                imageInput.value = '';
+                return;
+            }
+            try {
+                pendingImage = await resizeImage(file);
+                imagePreview.src = pendingImage;
+                imagePreviewWrap.classList.remove('hidden');
+                clearError();
+            } catch {
+                showError('Could not read that image. Try another.');
+            }
+        });
+
+        removeImageBtn.addEventListener('click', () => {
+            pendingImage = null;
+            imageInput.value = '';
+            imagePreviewWrap.classList.add('hidden');
+        });
+
+        function renderCard(c) {
+            const initials = escapeHtml((c.name || '?').slice(0, 2).toUpperCase());
+            return `
+                <li class="relative bg-panel ring-1 ring-line torn-top pt-4 pb-4 px-4 ${c.pinned ? '' : 'pin mt-1.5'}">
+                    ${c.image ? `<img src="${escapeHtml(c.image)}" alt="" class="w-full h-48 object-cover mb-3 ring-1 ring-line">` : ''}
+                    <div class="flex items-baseline gap-2 flex-wrap mb-1">
+                        <span class="w-6 h-6 rounded-full bg-blood text-white text-[10px] font-bold flex items-center justify-center shrink-0">${initials}</span>
+                        <span class="font-semibold text-sm">${escapeHtml(c.name)}</span>
+                        ${!c.pinned ? `<span class="text-[11px] text-white/35 ml-auto">${timeAgo(c.time)}</span>` : `<span class="text-[11px] text-white/35 ml-auto uppercase tracking-widest">Pinned</span>`}
+                    </div>
+                    ${c.text ? `<p class="text-sm text-white/80 whitespace-pre-wrap break-words">${escapeHtml(c.text)}</p>` : ''}
+                </li>
+            `;
+        }
+
+        function renderWall(comments) {
+            const all = [...SEED_PHOTOS, ...comments.slice().sort((a, b) => b.time - a.time)];
+            if (!all.length) {
+                statusEl.textContent = 'Nothing pinned yet. Be the first!';
+                statusEl.classList.remove('hidden');
+                listEl.innerHTML = '';
+                return;
+            }
+            statusEl.classList.add('hidden');
+            listEl.innerHTML = all.map(renderCard).join('');
+        }
+
+        async function loadWall() {
+            try {
+                const res = await fetch(API);
+                if (!res.ok) throw new Error('bad response');
+                const comments = await res.json();
+                renderWall(comments);
+                return comments;
+            } catch (e) {
+                statusEl.textContent = 'Could not load the wall. Refresh to try again.';
+                statusEl.classList.remove('hidden');
+                renderWall([]);
+                return [];
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearError();
+            const name = nameInput.value.trim();
+            const text = textInput.value.trim();
+            if (!name) return showError('Please enter your name.');
+            if (!text && !pendingImage) return showError('Add a comment or a photo.');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Posting...';
+            try {
+                const res = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, text, image: pendingImage }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to post');
+                form.reset();
+                pendingImage = null;
+                imagePreviewWrap.classList.add('hidden');
+                await loadWall();
+            } catch (err) {
+                showError(err.message || 'Could not post. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit';
+            }
+        });
+
+        loadWall();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elemsi | LMC</title>
+    <link rel="icon" href="img/icon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        ink: '#0a0a0a',
+                        panel: '#141414',
+                        line: 'rgba(255,255,255,0.10)',
+                        blood: '#e10600',
+                        paper: '#f5f4ef',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.05;
+            background-image: radial-gradient(#fff 0.6px, transparent 0.6px);
+            background-size: 3px 3px;
+        }
+
+        .stub {
+            position: relative;
+            background: #e10600;
+            color: #0a0a0a;
+        }
+
+        .stub::before,
+        .stub::after {
+            content: "";
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #0a0a0a;
+            border-radius: 999px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .stub::before {
+            left: -7px;
+        }
+
+        .stub::after {
+            right: -7px;
+        }
+
+        .stub-edge {
+            background-image: repeating-linear-gradient(to bottom, #0a0a0a 0 6px, transparent 6px 12px);
+            background-size: 2px 12px;
+            background-repeat: repeat-y;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        ::selection {
+            background: #e10600;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-body text-paper relative">
+
+    <div class="grain"></div>
+
+    <!-- Logo, upper right corner -->
+    <img src="img/logo.png" alt="LMC logo"
+        class="fixed top-4 right-4 sm:top-6 sm:right-6 w-12 h-12 sm:w-16 sm:h-16 object-contain z-20">
+
+    <main class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-16 min-h-screen flex flex-col">
+
+        <!-- Hero -->
+        <section class="relative fade-up flex-1 flex flex-col justify-center">
+
+            <!-- Background image, centered behind the text -->
+            <img src="img/lmc.jpg" alt=""
+                class="pointer-events-none select-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] max-w-none opacity-15 z-0">
+
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="stub stub-edge px-5 py-1.5 -rotate-2 shadow-lg shadow-black/50">
+                        <span class="font-display text-xl tracking-widest">LMC</span>
+                    </div>
+                    <span class="text-[11px] tracking-[0.35em] uppercase text-white/40 font-semibold">Letran Musician
+                        Circle</span>
+                </div>
+
+                <h1 class="font-display text-5xl sm:text-6xl md:text-7xl leading-[0.95] tracking-wide">
+                    LMC<br>
+                    <span class="text-blood">Website</span><br>
+                    is currently under development. Stay tuned for updates!
+                </h1>
+
+                <div class="mt-6 border-l-2 border-blood pl-4">
+                    <p class="text-base sm:text-lg text-white/80 font-medium leading-snug">
+                        We've never been touched, but touch me not — or we'll touch ourselves na lang.
+                    </p>
+                    <p class="italic text-sm sm:text-base text-white/50 mt-1">WE LOVE LMC SO MUCH ARGH</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-white/30 text-xs pb-4 tracking-widest uppercase">Letran Musician
+            Circle @2026</footer>
+    </main>
+
+</body>
+
+</html>
